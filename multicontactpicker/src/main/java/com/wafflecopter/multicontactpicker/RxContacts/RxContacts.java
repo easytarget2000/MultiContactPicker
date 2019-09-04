@@ -22,8 +22,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
 import android.util.LongSparseArray;
+
+import androidx.annotation.NonNull;
 
 import com.wafflecopter.multicontactpicker.LimitColumn;
 
