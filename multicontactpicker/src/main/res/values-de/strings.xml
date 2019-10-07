@@ -1,7 +1,7 @@
 <resources>
     <string name="picker_title">Kontakte suchen</string>
-    <string name="tv_select_btn_text_disabled">Beenden</string>
-    <string name="tv_select_btn_text_enabled">%1$s auswählen</string>
+    <string name="tv_select_btn_text_disabled"></string>
+    <string name="tv_select_btn_text_enabled">%1$s Einträge auswählen</string>
     <string name="tv_select_all_btn_text">Alle auswählen</string>
     <string name="tv_unselect_all_btn_text">Rückgängig</string>
     <string name="tv_no_contacts">Keine Kontakte gefunden</string>
