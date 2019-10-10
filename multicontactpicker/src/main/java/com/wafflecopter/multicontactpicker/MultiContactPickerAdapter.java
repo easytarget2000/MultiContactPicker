@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.l4digital.fastscroll.FastScroller;
 import com.wafflecopter.multicontactpicker.RxContacts.Contact;
-import com.wafflecopter.multicontactpicker.Views.RoundLetterView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,7 @@ class MultiContactPickerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private ContactSelectListener listener;
     private String currentFilterQuery;
 
-    interface ContactSelectListener{
+    interface ContactSelectListener {
         void onContactSelected(Contact contact, int totalSelectedContacts);
     }
 
@@ -48,12 +47,11 @@ class MultiContactPickerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int i) {
-        if(holder instanceof ContactViewHolder) {
+        if (holder instanceof ContactViewHolder) {
             ContactViewHolder contactViewHolder = (ContactViewHolder) holder;
             final Contact contactItem = getItem(i);
             contactViewHolder.tvContactName.setText(contactItem.getDisplayName());
-            contactViewHolder.vRoundLetterView.setTitleText(String.valueOf(contactItem.getDisplayName().charAt(0)));
-            contactViewHolder.vRoundLetterView.setBackgroundColor(contactItem.getBackgroundColor());
+            contactViewHolder.imageView.setImageURI(contactItem.getThumbnail());
 
             if (contactItem.getPhoneNumbers().size() > 0) {
                 String phoneNumber = contactItem.getPhoneNumbers().get(0).getNumber().replaceAll("\\s+", "");
@@ -99,11 +97,10 @@ class MultiContactPickerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             });
 
 
-
         }
     }
 
-    private void highlightTerm(TextView tv, String query, String originalString){
+    private void highlightTerm(TextView tv, String query, String originalString) {
         if (query != null && !query.isEmpty()) {
             int startPos = originalString.toLowerCase().indexOf(query.toLowerCase());
             int endPos = startPos + query.length();
@@ -121,7 +118,7 @@ class MultiContactPickerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    protected void setAllSelected(boolean isAll){
+    protected void setAllSelected(boolean isAll) {
         for (Contact c : contactItemList) {
             c.setSelected(isAll);
             if (listener != null) {
@@ -131,15 +128,15 @@ class MultiContactPickerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         notifyDataSetChanged();
     }
 
-    protected void setContactSelected(long id){
+    protected void setContactSelected(long id) {
         int pos = getItemPosition(contactItemList, id);
         contactItemList.get(pos).setSelected(!contactItemList.get(pos).isSelected());
     }
 
-    private int getItemPosition(List<Contact> list, long mid){
+    private int getItemPosition(List<Contact> list, long mid) {
         int i = 0;
-        for(Contact contact : list){
-            if(contact.getId() == mid){
+        for (Contact contact : list) {
+            if (contact.getId() == mid) {
                 return i;
             }
             i++;
@@ -147,14 +144,14 @@ class MultiContactPickerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return -1;
     }
 
-    protected int getSelectedContactsCount(){
+    protected int getSelectedContactsCount() {
         return ((getSelectedContacts() != null) ? getSelectedContacts().size() : 0);
     }
 
-    List<Contact> getSelectedContacts(){
+    List<Contact> getSelectedContacts() {
         List<Contact> selectedContacts = new ArrayList<>();
-        for(Contact contact : contactItemListOriginal){
-            if(contact.isSelected()){
+        for (Contact contact : contactItemListOriginal) {
+            if (contact.isSelected()) {
                 selectedContacts.add(contact);
             }
         }
@@ -166,7 +163,7 @@ class MultiContactPickerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return (null != contactItemList ? contactItemList.size() : 0);
     }
 
-    private Contact getItem(int pos){
+    private Contact getItem(int pos) {
         return contactItemList.get(pos);
     }
 
@@ -174,7 +171,7 @@ class MultiContactPickerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public String getSectionText(int position) {
         try {
             return String.valueOf(contactItemList.get(position).getDisplayName().charAt(0));
-        } catch (NullPointerException | IndexOutOfBoundsException ex){
+        } catch (NullPointerException | IndexOutOfBoundsException ex) {
             ex.printStackTrace();
             return "";
         }
@@ -184,19 +181,20 @@ class MultiContactPickerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         private final View mView;
         private TextView tvContactName;
         private TextView tvNumber;
-        private RoundLetterView vRoundLetterView;
+        private ImageView imageView;
         private ImageView ivSelectedState;
+
         ContactViewHolder(View view) {
             super(view);
             this.mView = view;
-            this.vRoundLetterView = (RoundLetterView) view.findViewById(R.id.vRoundLetterView);
-            this.tvContactName = (TextView) view.findViewById(R.id.tvContactName);
-            this.tvNumber = (TextView) view.findViewById(R.id.tvNumber);
-            this.ivSelectedState = (ImageView) view.findViewById(R.id.ivSelectedState);
+            this.imageView = view.findViewById(R.id.contactItemImageView);
+            this.tvContactName = view.findViewById(R.id.tvContactName);
+            this.tvNumber = view.findViewById(R.id.tvNumber);
+            this.ivSelectedState = view.findViewById(R.id.ivSelectedState);
         }
     }
 
-    public void filterOnText(String query){
+    public void filterOnText(String query) {
         this.currentFilterQuery = query;
         getFilter().filter(currentFilterQuery);
     }
