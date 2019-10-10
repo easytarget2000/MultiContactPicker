@@ -19,7 +19,7 @@
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_marginLeft="10dp">
 
-        <ImageView
+        <com.wafflecopter.multicontactpicker.RoundedImageView
             android:id="@+id/contactItemImageView"
             android:layout_width="40dp"
             android:layout_height="40dp"
