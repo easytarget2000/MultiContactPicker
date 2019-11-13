@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/contactPickerSearchAction"
-        android:icon="@drawable/ic_search_black_24dp"
+        android:icon="@drawable/ic_search_24dp"
         android:title="@string/abc_search_hint"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/contactPickerSelectAllWithoutImageAction"
-        android:icon="@drawable/ic_filter_none_black_24dp"
+        android:icon="@drawable/ic_filter_none_24dp"
         android:title="@string/selectAllWithoutImageButton"
         app:showAsAction="ifRoom|withText" />
 
