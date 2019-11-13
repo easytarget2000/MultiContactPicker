@@ -118,14 +118,26 @@ class MultiContactPickerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    protected void setAllSelected(boolean isAll) {
-        for (Contact c : contactItemList) {
-            c.setSelected(isAll);
-            if (listener != null) {
-                listener.onContactSelected(c, getSelectedContactsCount());
-            }
+    void setAllSelected(final boolean isAll) {
+        for (final Contact contact : contactItemList) {
+            contact.setSelected(isAll);
+            notifyListenerOfContactSelection(contact);
         }
         notifyDataSetChanged();
+    }
+
+    void selectAllWithoutImage() {
+        for (final Contact contact : contactItemList) {
+            contact.setSelected(contact.hasPhoto());
+            notifyListenerOfContactSelection(contact);
+        }
+        notifyDataSetChanged();
+    }
+
+    private void notifyListenerOfContactSelection(final Contact contact) {
+        if (listener != null) {
+            listener.onContactSelected(contact, getSelectedContactsCount());
+        }
     }
 
     protected void setContactSelected(long id) {

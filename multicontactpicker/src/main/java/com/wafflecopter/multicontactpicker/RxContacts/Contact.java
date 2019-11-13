@@ -57,6 +57,10 @@ public class Contact implements Comparable<Contact> {
         return mPhoto;
     }
 
+    public boolean hasPhoto() {
+        return getPhoto() != null;
+    }
+
     public void setPhoto(Uri photo) {
         mPhoto = photo;
     }
