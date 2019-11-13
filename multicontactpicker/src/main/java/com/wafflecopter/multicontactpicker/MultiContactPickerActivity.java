@@ -259,7 +259,7 @@ public class MultiContactPickerActivity extends AppCompatActivity implements Mat
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.mcp_menu_main, menu);
+        getMenuInflater().inflate(R.menu.contactPicker, menu);
         searchMenuItem = menu.findItem(R.id.mcp_action_search);
         setSearchIconColor(searchMenuItem, builder.searchIconColor);
         searchView.setMenuItem(searchMenuItem);

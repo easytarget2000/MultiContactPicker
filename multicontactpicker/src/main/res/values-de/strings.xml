@@ -5,4 +5,6 @@
     <string name="tv_select_all_btn_text">Alle auswählen</string>
     <string name="tv_unselect_all_btn_text">Rückgängig</string>
     <string name="tv_no_contacts">Keine Kontakte gefunden</string>
+    <string name="selectAllWithoutImageButton">Alle fehlenden Bilder</string>
+    <string name="selectAllMicopiImagesButton">Alle Micopi-Bilder</string>
 </resources>

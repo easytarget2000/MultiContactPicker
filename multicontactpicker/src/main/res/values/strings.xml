@@ -5,4 +5,6 @@
     <string name="tv_select_all_btn_text">Select All</string>
     <string name="tv_unselect_all_btn_text">Un-select All</string>
     <string name="tv_no_contacts">No contacts found</string>
+    <string name="selectAllWithoutImageButton">All Missing Pictures</string>
+    <string name="selectAllMicopiImagesButton">All Micopi Pictures</string>
 </resources>
