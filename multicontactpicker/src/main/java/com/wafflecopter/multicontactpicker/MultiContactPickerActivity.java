@@ -1,7 +1,6 @@
 package com.wafflecopter.multicontactpicker;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.l4digital.fastscroll.FastScrollRecyclerView;
@@ -49,6 +47,7 @@ public class MultiContactPickerActivity extends AppCompatActivity implements Mat
     private MenuItem searchMenuItem;
     private MultiContactPicker.Builder builder;
     private boolean allSelected = false;
+    private boolean allowMultipleSelection = false;
     private CompositeDisposable disposables;
     private Integer animationCloseEnter, animationCloseExit;
 
@@ -163,13 +162,15 @@ public class MultiContactPickerActivity extends AppCompatActivity implements Mat
             recyclerView.setTrackColor(builder.trackColor);
         recyclerView.setHideScrollbar(builder.hideScrollbar);
         recyclerView.setTrackVisible(builder.showTrack);
-        if (builder.selectionMode == MultiContactPicker.CHOICE_MODE_SINGLE) {
-            controlPanel.setVisibility(View.GONE);
-        } else {
+
+        allowMultipleSelection = builder.selectionMode == MultiContactPicker.CHOICE_MODE_MULTIPLE;
+        if (allowMultipleSelection) {
             controlPanel.setVisibility(View.VISIBLE);
+        } else {
+            controlPanel.setVisibility(View.GONE);
         }
 
-        if (builder.selectionMode == MultiContactPicker.CHOICE_MODE_SINGLE && builder.selectedItems.size() > 0) {
+        if (allowMultipleSelection && builder.selectedItems.size() > 0) {
             throw new RuntimeException("You must be using MultiContactPicker.CHOICE_MODE_MULTIPLE in order to use setSelectedContacts()");
         }
 
@@ -268,20 +269,13 @@ public class MultiContactPickerActivity extends AppCompatActivity implements Mat
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.contact_picker, menu);
         searchMenuItem = menu.findItem(R.id.contactPickerSearchAction);
-//        setSearchIconColor(searchMenuItem, builder.searchIconColor);
         searchView.setMenuItem(searchMenuItem);
-        return true;
-    }
 
-    private void setSearchIconColor(MenuItem menuItem, final Integer color) {
-        if (color != null) {
-            Drawable drawable = menuItem.getIcon();
-            if (drawable != null) {
-                drawable = DrawableCompat.wrap(drawable);
-                DrawableCompat.setTint(drawable.mutate(), color);
-                menuItem.setIcon(drawable);
-            }
-        }
+        final MenuItem allWithoutImageButton;
+        allWithoutImageButton = menu.findItem(R.id.contactPickerSelectAllWithoutImageAction);
+        enableSelectAllWithoutImageButtonIfAvailable(allWithoutImageButton);
+
+        return true;
     }
 
     @Override
@@ -314,5 +308,11 @@ public class MultiContactPickerActivity extends AppCompatActivity implements Mat
     public void onDestroy() {
         disposables.clear();
         super.onDestroy();
+    }
+
+    private void enableSelectAllWithoutImageButtonIfAvailable(
+            final MenuItem allWithoutImageButton
+    ) {
+        allWithoutImageButton.setVisible(allowMultipleSelection);
     }
 }

@@ -12,4 +12,5 @@
         android:icon="@drawable/ic_filter_none_black_24dp"
         android:title="@string/selectAllWithoutImageButton"
         app:showAsAction="ifRoom|withText" />
+
 </menu>
