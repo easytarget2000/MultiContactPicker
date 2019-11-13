@@ -106,18 +106,20 @@ public class MultiContactPickerActivity extends AppCompatActivity implements Mat
             }
         });
 
-        tvSelectAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                allSelected = !allSelected;
-                if (adapter != null)
-                    adapter.setAllSelected(allSelected);
-                if (allSelected)
-                    tvSelectAll.setText(getString(R.string.tv_unselect_all_btn_text));
-                else
-                    tvSelectAll.setText(getString(R.string.tv_select_all_btn_text));
-            }
-        });
+        tvSelectAll.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        allSelected = !allSelected;
+                        if (adapter != null)
+                            adapter.setAllSelected(allSelected);
+                        if (allSelected)
+                            tvSelectAll.setText(getString(R.string.tv_unselect_all_btn_text));
+                        else
+                            tvSelectAll.setText(getString(R.string.tv_select_all_btn_text));
+                    }
+                }
+        );
 
     }
 
@@ -179,12 +181,13 @@ public class MultiContactPickerActivity extends AppCompatActivity implements Mat
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                setResult(RESULT_CANCELED);
-                finish();
-                overrideAnimation();
-                break;
+        final int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            setResult(RESULT_CANCELED);
+            finish();
+            overrideAnimation();
+        } else if (itemId == R.id.contactPickerSelectAllWithoutImageAction) {
+            selectAllWithoutImage();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -255,6 +258,10 @@ public class MultiContactPickerActivity extends AppCompatActivity implements Mat
                     }
                 });
 
+    }
+
+    private void selectAllWithoutImage() {
+        adapter.selectAllWithoutImage();
     }
 
     @Override

@@ -128,7 +128,7 @@ class MultiContactPickerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     void selectAllWithoutImage() {
         for (final Contact contact : contactItemList) {
-            contact.setSelected(contact.hasPhoto());
+            contact.setSelected(!contact.hasPhoto());
             notifyListenerOfContactSelection(contact);
         }
         notifyDataSetChanged();
