@@ -176,7 +176,7 @@ public class MultiContactPickerActivity extends AppCompatActivity implements Mat
         }
 
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -251,8 +251,6 @@ public class MultiContactPickerActivity extends AppCompatActivity implements Mat
                         tvSelectAll.setEnabled(true);
                     }
                 });
-
-
 
     }
 
